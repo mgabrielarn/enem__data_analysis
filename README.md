@@ -1,96 +1,71 @@
-# enem__data_analysis
+# 🌟 Projeto ENEM 2023 — Modelagem Estrela com PySpark
 
-# 📚 Catálogo de Dados — Esquema Estrela ENEM
-
----
-
-## 🎯 FATO_RESULTADO_ENEM (Fato Principal)
-
-| Coluna               | Tipo      | Descrição |
-|----------------------|-----------|-----------|
-| NU_INSCRICAO         | String    | Número de inscrição do participante |
-| NU_ANO               | Inteiro   | Ano da realização do exame |
-| TP_PRESENCA_CN       | Inteiro   | Presença na prova de Ciências da Natureza |
-| TP_PRESENCA_CH       | Inteiro   | Presença na prova de Ciências Humanas |
-| TP_PRESENCA_LC       | Inteiro   | Presença na prova de Linguagens e Códigos |
-| TP_PRESENCA_MT       | Inteiro   | Presença na prova de Matemática |
-| NU_NOTA_CN           | Double    | Nota em Ciências da Natureza |
-| NU_NOTA_CH           | Double    | Nota em Ciências Humanas |
-| NU_NOTA_LC           | Double    | Nota em Linguagens e Códigos |
-| NU_NOTA_MT           | Double    | Nota em Matemática |
-| TP_STATUS_REDACAO    | Inteiro   | Status da correção da redação |
-| NU_NOTA_COMP1        | Double    | Nota da competência 1 da redação |
-| NU_NOTA_COMP2        | Double    | Nota da competência 2 da redação |
-| NU_NOTA_COMP3        | Double    | Nota da competência 3 da redação |
-| NU_NOTA_COMP4        | Double    | Nota da competência 4 da redação |
-| NU_NOTA_COMP5        | Double    | Nota da competência 5 da redação |
-| NU_NOTA_REDACAO      | Double    | Nota final da redação |
-| ID_PARTICIPANTE      | Inteiro   | Chave estrangeira para dim_participante |
-| ID_SOCIOECONOMICO    | Inteiro   | Chave estrangeira para dim_socioeconomico |
-| ID_LOCAL_PROVA       | Inteiro   | Chave estrangeira para dim_local_prova |
-| ID_LOCAL_ESCOLA      | Inteiro   | Chave estrangeira para dim_local_escola |
+Este projeto tem como objetivo construir um **Data Warehouse** baseado nos **Microdados do ENEM 2023**, utilizando o modelo dimensional **Esquema Estrela** e a tecnologia **PySpark**, com foco em organização, performance e análise exploratória.
 
 ---
 
-## 🧑 DIM_PARTICIPANTE
+## 📦 Estrutura do Projeto
 
-| Coluna              | Tipo      | Descrição |
-|---------------------|-----------|-----------|
-| ID_PARTICIPANTE     | Inteiro   | Chave primária (surrogate key) |
-| NU_INSCRICAO        | String    | Número de inscrição |
-| TP_FAIXA_ETARIA     | Inteiro   | Faixa etária do participante |
-| TP_SEXO             | String    | Sexo do participante |
-| TP_ESTADO_CIVIL     | Inteiro   | Estado civil |
-| TP_COR_RACA         | Inteiro   | Cor ou raça declarada |
-| TP_NACIONALIDADE    | Inteiro   | Nacionalidade |
-| TP_ST_CONCLUSAO     | Inteiro   | Situação de conclusão do ensino médio |
-| TP_ANO_CONCLUIU     | Inteiro   | Ano de conclusão |
-| TP_ESCOLA           | Inteiro   | Tipo de escola frequentada |
-| TP_ENSINO           | Inteiro   | Modalidade de ensino |
-| IN_TREINEIRO        | Inteiro   | Indicador se o participante é “treineiro” |
+📁 /content/ ├── 📁 tabelas_enem/ # Tabelas salvas no formato Parquet │ ├── dim_participante.parquet │ ├── dim_socioeconomico.parquet │ ├── dim_local_prova.parquet │ ├── dim_local_escola.parquet │ └── fato_resultado_enem.parquet ├── catalogo_de_dados.md # Dicionário de dados completo └── README.md # Este arquivo
+
 
 ---
 
-## 🏠 DIM_SOCIOECONOMICO
+## 🔧 Tecnologias Utilizadas
 
-| Coluna             | Tipo    | Descrição |
-|--------------------|---------|-----------|
-| ID_SOCIOECONOMICO  | Inteiro | Chave primária |
-| NU_INSCRICAO       | String  | Número de inscrição |
-| Q001 – Q025        | String  | Respostas do questionário socioeconômico |
-
-> Exemplos:
-> - Q001: Escolaridade do pai  
-> - Q002: Escolaridade da mãe  
-> - Q006: Renda familiar  
-> - Q024: Acesso à internet  
-> - Q025: Número de computadores no domicílio
+- Apache **Spark 3.x**
+- **PySpark** (DataFrames API)
+- Google **Colab**
+- Python 3.x
 
 ---
 
-## 📍 DIM_LOCAL_PROVA
+## 📥 Fonte dos Dados
 
-| Coluna              | Tipo    | Descrição |
-|---------------------|---------|-----------|
-| ID_LOCAL_PROVA      | Inteiro | Chave primária |
-| NU_INSCRICAO        | String  | Número de inscrição |
-| CO_MUNICIPIO_PROVA  | Inteiro | Código do município da prova |
-| NO_MUNICIPIO_PROVA  | String  | Nome do município da prova |
-| CO_UF_PROVA         | Inteiro | Código da UF da prova |
-| SG_UF_PROVA         | String  | Sigla da UF da prova |
+- **Microdados ENEM 2023**  
+  Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (INEP)  
+  [https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados)
 
 ---
 
-## 🏫 DIM_LOCAL_ESCOLA
+## 🧠 Etapas do Projeto
 
-| Coluna                    | Tipo    | Descrição |
-|---------------------------|---------|-----------|
-| ID_LOCAL_ESCOLA           | Inteiro | Chave primária |
-| NU_INSCRICAO              | String  | Número de inscrição |
-| CO_MUNICIPIO_ESC          | Inteiro | Código do município da escola |
-| NO_MUNICIPIO_ESC          | String  | Nome do município da escola |
-| CO_UF_ESC                 | Inteiro | Código da UF da escola |
-| SG_UF_ESC                 | String  | Sigla da UF da escola |
-| TP_DEPENDENCIA_ADM_ESC    | Inteiro | Dependência administrativa (1=Federal, 2=Estadual, etc.) |
-| TP_LOCALIZACAO_ESC        | Inteiro | Localização (1=Urbana, 2=Rural) |
-| TP_SIT_FUNC_ESC           | Inteiro | Situação de funcionamento da escola |
+1. 📥 Leitura dos microdados com PySpark
+2. 🔍 Seleção de colunas relevantes e tratamento de dados
+3. 🔧 Criação das dimensões com chaves substitutas (`add_surrogate_key`)
+4. 🔗 Criação da tabela fato com joins nas dimensões
+5. 💾 Exportação das tabelas em formato `.parquet`
+6. 📚 Criação do catálogo de dados com domínios, categorias e linhagem
+
+---
+
+## 🧱 Esquema Estrela
+
+**Fato:**
+- `fato_resultado_enem`: notas, presenças, status da redação
+
+**Dimensões:**
+- `dim_participante`: dados pessoais e escolares
+- `dim_socioeconomico`: respostas ao questionário socioeconômico
+- `dim_local_prova`: informações sobre o local da prova
+- `dim_local_escola`: localização e características da escola
+
+---
+
+## 📚 Documentação
+
+- `catalogo_de_dados.md`: Catálogo de dados com descrições, domínios e linhagem
+
+---
+
+## 👤 Autor
+
+Este projeto foi desenvolvido por **[Seu Nome]** como parte de um estudo/análise dos dados do ENEM 2023.  
+Contribuições e feedbacks são bem-vindos!
+
+---
+
+## 📄 Licença
+
+Este projeto é de uso **educacional**.  
+Os dados utilizados são públicos e disponibilizados pelo INEP.
