@@ -1,22 +1,12 @@
-# 📚 Catálogo de Dados — Esquema Estrela ENEM
+# Catálogo de Dados — Microdados do ENEM 2023
+Modelagem em estrela
 
 ---
 
-## 📌 Observações Gerais
 
-Independentemente do modelo, deve ser construído um **Catálogo de Dados** contendo minimamente uma **descrição detalhada dos dados e seus domínios**, incluindo:
+## Linhagem dos Dados
 
-- 🧮 **Valores mínimos e máximos esperados para dados numéricos**
-- 🧾 **Possíveis categorias para dados categóricos**
-- 🔍 **Linhagem dos dados**, incluindo:
-  - Fonte de origem (como foram obtidos)
-  - Técnicas utilizadas para compor o conjunto de dados (ex: seleção de colunas, joins, limpeza, tratamento de duplicidades, geração de chaves substitutas etc.)
-
----
-
-## 🔗 Linhagem dos Dados
-
-- **Fonte:** Microdados ENEM 2023 — disponível para download em: [https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados)
+- **Fonte:** Microdados ENEM 2023 — disponível para download em: [https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem)
 - **Formato original:** Arquivo texto (.CSV) delimitado por `;` e acompanhado de dicionário de dados (.XLSX)
 - **Transformações aplicadas:**
   - Leitura com PySpark
@@ -24,11 +14,11 @@ Independentemente do modelo, deve ser construído um **Catálogo de Dados** cont
   - Criação de tabelas dimensão com `.dropDuplicates()`
   - Geração de **chaves substitutas (surrogate keys)** para tabelas dimensão com função `add_surrogate_key`
   - Criação da **fato_resultado_enem** com `join` das chaves substitutas
-  - Escrita final no formato `.parquet` no ambiente do Google Colab
+  - Escrita final no formato `.parquet` no ambiente de arquivos utilizado
 
 ---
 
-## 🎯 FATO_RESULTADO_ENEM
+## FATO_RESULTADO_ENEM
 
 | Coluna               | Tipo      | Descrição | Domínio Esperado |
 |----------------------|-----------|-----------|------------------|
@@ -43,7 +33,7 @@ Independentemente do modelo, deve ser construído um **Catálogo de Dados** cont
 
 ---
 
-## 🧑 DIM_PARTICIPANTE
+## DIM_PARTICIPANTE
 
 | Coluna              | Tipo      | Descrição | Domínio Esperado |
 |---------------------|-----------|-----------|------------------|
@@ -60,7 +50,7 @@ Independentemente do modelo, deve ser construído um **Catálogo de Dados** cont
 
 ---
 
-## 🏠 DIM_SOCIOECONOMICO
+## DIM_SOCIOECONOMICO
 
 | Coluna         | Tipo   | Descrição | Domínio Esperado |
 |----------------|--------|-----------|------------------|
@@ -72,7 +62,7 @@ Independentemente do modelo, deve ser construído um **Catálogo de Dados** cont
 
 ---
 
-## 📍 DIM_LOCAL_PROVA
+## DIM_LOCAL_PROVA
 
 | Coluna              | Tipo    | Descrição | Domínio Esperado |
 |---------------------|---------|-----------|------------------|
@@ -83,7 +73,7 @@ Independentemente do modelo, deve ser construído um **Catálogo de Dados** cont
 
 ---
 
-## 🏫 DIM_LOCAL_ESCOLA
+## DIM_LOCAL_ESCOLA
 
 | Coluna                    | Tipo    | Descrição | Domínio Esperado |
 |---------------------------|---------|-----------|------------------|
