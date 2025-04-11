@@ -41,10 +41,14 @@ Diferentes fatores, além dos explorados na análise, podem contribuir para as n
 - `dim_local_prova`: informações sobre o local da prova
 
 ---
+## Autoavaliação
+
+lorem ips
+---
 
 ## Documentação
 
-- `catalogo_de_dados.md`: Catálogo de dados com descrições, domínios e linhagem
+- `/src/catalogo_de_dados.md`: Catálogo de dados com descrições, domínios e linhagem
 
 ---
 
