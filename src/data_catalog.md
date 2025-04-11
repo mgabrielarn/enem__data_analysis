@@ -1,20 +1,18 @@
 # Catálogo de Dados — Microdados do ENEM 2023
-Modelagem em estrela
-
 ---
 
 
 ## Linhagem dos Dados
 
 - **Fonte:** Microdados ENEM 2023 — disponível para download em: [https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem)
-- **Formato original:** Arquivo texto (.CSV) delimitado por `;` e acompanhado de dicionário de dados (.XLSX)
+- **Formato original:** Arquivo texto (.CSV) delimitado por `;` e acompanhado de dicionário de dados
 - **Transformações aplicadas:**
-  - Leitura com PySpark
+  - Leitura do arquivo
   - Seleção de colunas relevantes
   - Criação de tabelas dimensão com `.dropDuplicates()`
   - Geração de **chaves substitutas (surrogate keys)** para tabelas dimensão com função `add_surrogate_key`
   - Criação da **fato_resultado_enem** com `join` das chaves substitutas
-  - Escrita final no formato `.parquet` no ambiente de arquivos utilizado
+  - Escrita final no ambiente de arquivos
 
 ---
 
@@ -22,14 +20,12 @@ Modelagem em estrela
 
 | Coluna               | Tipo      | Descrição | Domínio Esperado |
 |----------------------|-----------|-----------|------------------|
-| NU_INSCRICAO         | String    | Número de inscrição do participante | Numérico, identificador único |
 | NU_ANO               | Inteiro   | Ano da realização do exame | 2023 |
-| TP_PRESENCA_*        | Inteiro   | Presença nas provas (0 = ausente, 1 = presente, 2 = eliminado) | {0, 1, 2} |
-| NU_NOTA_*            | Double    | Nota por área do conhecimento | 0–1000 |
-| TP_STATUS_REDACAO    | Inteiro   | Status da correção da redação | Ex: {1, 2, 3, ...} |
-| NU_NOTA_COMP*        | Double    | Notas de 0 a 200 por competência | 0–200 |
+| TP_PRESENCA_* (CN, CH, LC, MT)        | Inteiro   | Presença nas provas (0 = ausente, 1 = presente, 2 = eliminado) | {0, 1, 2} |
+| NU_NOTA_* (CN, CH, LC, MT)           | Double    | Nota por área do conhecimento | 0–1000 |
+| TP_STATUS_REDACAO    | Inteiro   | Status da correção da redação (1 = sEM PROBLEMAS, 2 = Anulada, 3 = Cópia Texo Motivador, 4 = Em Branco, 6 = Fuga ao tema, 7= Não atendeu ao tipo textual, 8 = Texto insuficiente, 9 = Parte desconectada) | Ex: {1, 2, 3, ... , 9} |
 | NU_NOTA_REDACAO      | Double    | Nota final da redação | 0–1000 |
-| ID_*                 | Inteiro   | Chaves estrangeiras para dimensões | Geradas via surrogate key |
+| ID_* (PARTICIPANTE, SOCIOECONOMICO, LOCAL_PROVA)                 | Inteiro   | Chaves estrangeiras para dimensões | Geradas via surrogate key |
 
 ---
 
@@ -37,16 +33,17 @@ Modelagem em estrela
 
 | Coluna              | Tipo      | Descrição | Domínio Esperado |
 |---------------------|-----------|-----------|------------------|
-| TP_FAIXA_ETARIA     | Inteiro   | Faixa etária | 1–17 (de acordo com faixas do INEP) |
+| ID_PARTICIPANTE     | Inteiro   | Identificador único de participante | Chave estrangeira gerada via surrogate key |
+| TP_FAIXA_ETARIA     | Inteiro   | Faixa etária | 1–20 (de acordo com faixas do INEP) |
 | TP_SEXO             | String    | Sexo | {"M", "F"} |
 | TP_ESTADO_CIVIL     | Inteiro   | Estado civil | {0: Não informado, 1: Solteiro, ...} |
-| TP_COR_RACA         | Inteiro   | Cor ou raça | {0: Não declarado, 1: Branca, ..., 5: Indígena} |
-| TP_NACIONALIDADE    | Inteiro   | Nacionalidade | {1: Brasileira, 2: Brasileira - Nascido exterior, 3: Estrangeira} |
-| TP_ST_CONCLUSAO     | Inteiro   | Situação de conclusão do ensino médio | {1: Já concluído, 2: Concluirá, ...} |
-| TP_ANO_CONCLUIU     | Inteiro   | Ano de conclusão | Valores reais de anos |
-| TP_ESCOLA           | Inteiro   | Tipo de escola | {1: Pública, 2: Privada, etc.} |
-| TP_ENSINO           | Inteiro   | Modalidade de ensino | {1: Regular, 2: EJA, etc.} |
-| IN_TREINEIRO        | Inteiro   | Participante treineiro? | {0, 1} |
+| TP_COR_RACA         | Inteiro   | Cor ou raça | {0: Não declarado, 1: Branca, 2: Preta, 3: Parda, 4: Amarela, 5: Indígena, 6: Não dispõe da informação} |
+| TP_NACIONALIDADE    | Inteiro   | Nacionalidade | {1: Brasileira, 2: Brasileira - Nascido exterior, 3: Estrangeira, ...} |
+| TP_ST_CONCLUSAO     | Inteiro   | Situação de conclusão do ensino médio | {1: Já concluído, 2: Concluirá em 2023, ...} |
+| TP_ANO_CONCLUIU     | Inteiro   | Ano de conclusão | Valores reais de anos de conclusão (2007 - 2022) |
+| TP_ESCOLA           | Inteiro   | Tipo de escola | {1: Não respondeu; 2: Pública, 3: Privada.} |
+| TP_ENSINO           | Inteiro   | Tipo de instituição que concluiu ou concluirá o Ensino Médio  | {1: Regular, 2: Educação Especial.} |
+| IN_TREINEIRO        | Inteiro   | Indica se o inscrito fez a prova com intuito de apenas treinar seus conhecimentos | {0, 1} |
 
 ---
 
@@ -54,7 +51,13 @@ Modelagem em estrela
 
 | Coluna         | Tipo   | Descrição | Domínio Esperado |
 |----------------|--------|-----------|------------------|
-| Q001–Q027      | String | Respostas ao questionário socioeconômico | {"A", "B", "C", "D", "E", "F"} conforme pergunta |
+| ID_SOCIOECONOMICO    | Inteiro   | Identificador único de participante no questionário socioeconomico | Chave estrangeira gerada via surrogate key |
+| Q001                | CHAR      | Até que série seu pai, ou o homem responsável por você, estudou? | {A: Nunca estudou., B: Não completou a 4ª série/5º ano do Ensino Fundamental., C: Completou a 4ª série/5º ano, mas não completou a 8ª série/9º ano., D: Completou a 8ª série/9º ano do Ensino Fundamental, mas não o Ensino Médio., E: Completou o Ensino Médio, mas não completou a Faculdade., F: Completou a Faculdade, mas não completou a Pós-graduação., G: Completou a Pós-graduação., H: Não sei.} |
+| Q002                | CHAR      | Até que série sua mãe, ou a mulher responsável por você, estudou? | {A: Nunca estudou., B: Não completou a 4ª série/5º ano do Ensino Fundamental., C: Completou a 4ª série/5º ano, mas não completou a 8ª série/9º ano., D: Completou a 8ª série/9º ano do Ensino Fundamental, mas não o Ensino Médio., E: Completou o Ensino Médio, mas não completou a Faculdade., F: Completou a Faculdade, mas não completou a Pós-graduação., G: Completou a Pós-graduação., H: Não sei.} |
+| Q003                | CHAR      | Em relação às pessoas que moram com você, o seu pai mora com você? | {A: Sim., B: Não., C: Não sei.} |
+| Q004                | CHAR      | Em relação às pessoas que moram com você, a sua mãe mora com você? | {A: Sim., B: Não., C: Não sei.} |
+| Q005                | CHAR      | Qual é a renda mensal aproximada de sua família (soma da renda de todos os integrantes)? | {A: Nenhuma renda., B: Até R$ 998,00., C: De R$ 998,01 até R$ 1.497,00., D: De R$ 1.497,01 até R$ 1.996,00., E: De R$ 1.996,01 até R$ 2.495,00., F: De R$ 2.495,01 até R$ 2.994,00., G: De R$ 2.994,01 até R$ 3.992,00., H: De R$ 3.992,01 até R$ 4.990,00., I: De R$ 4.990,01 até R$ 5.988,00., J: De R$ 5.988,01 até R$ 6.986,00., K: De R$ 6.986,01 até R$ 7.984,00., L: De R$ 7.984,01 até R$ 8.982,00., M: De R$ 8.982,01 até R$ 9.980,00., N: Acima de R$ 9.980,00.} |
+
 
 > Exemplo:  
 > - Q001: Escolaridade do pai — A: Nunca estudou, B: Até 4ª série, ..., E: Superior completo  
@@ -66,21 +69,10 @@ Modelagem em estrela
 
 | Coluna              | Tipo    | Descrição | Domínio Esperado |
 |---------------------|---------|-----------|------------------|
+| ID_LOCAL_PROVA    | Inteiro   | Identificador único de município onde se aplicou a prova | Chave estrangeira gerada via surrogate key |
 | CO_MUNICIPIO_PROVA  | Inteiro | Código IBGE do município | Código válido de município |
 | NO_MUNICIPIO_PROVA  | String  | Nome do município da prova | Texto |
 | CO_UF_PROVA         | Inteiro | Código da UF da prova | 11 a 53 (IBGE) |
 | SG_UF_PROVA         | String  | Sigla da UF da prova | {"SP", "RJ", "BA", ...} |
 
 ---
-
-## DIM_LOCAL_ESCOLA
-
-| Coluna                    | Tipo    | Descrição | Domínio Esperado |
-|---------------------------|---------|-----------|------------------|
-| CO_MUNICIPIO_ESC          | Inteiro | Código do município da escola | Código IBGE |
-| NO_MUNICIPIO_ESC          | String  | Nome do município | Texto |
-| CO_UF_ESC                 | Inteiro | Código da UF da escola | 11 a 53 |
-| SG_UF_ESC                 | String  | Sigla da UF | {"SP", "BA", "PA", ...} |
-| TP_DEPENDENCIA_ADM_ESC    | Inteiro | Tipo de administração | {1: Federal, 2: Estadual, 3: Municipal, 4: Privada} |
-| TP_LOCALIZACAO_ESC        | Inteiro | Localização | {1: Urbana, 2: Rural} |
-| TP_SIT_FUNC_ESC           | Inteiro | Situação da escola | {1: Em atividade, 2: Extinta, etc.} |
