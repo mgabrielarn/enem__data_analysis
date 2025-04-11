@@ -15,8 +15,7 @@ Diferentes fatores, além dos explorados na análise, podem contribuir para as n
 2. Existem diferenças significativas nos desempenhos de estudantes do sexo masculino e feminino?
 3. Existem diferenças significativas nos desempenhos de estudantes de acordo com sua cor/raça/etnia?
 4. Existem diferenças significativas nos desempenhos de estudantes de acordo com o tipo da escola que frenquentaram?
-6. Existem diferenças significativas nos desempenhos de estudantes de acordo com o nível de escolaridade que seus pais recebram?
-7. Existe um perfil claro dentre os alunos com melhores performances?
+5. Existem diferenças significativas nos desempenhos de estudantes de acordo com o nível de escolaridade que seus pais recebram?
 
 Por ser um escopo bastante amplo, neste projeto o foco será as disciplinas exatas, ou seja Matemática e Ciências da Natureza.
 
