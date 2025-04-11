@@ -18,6 +18,8 @@ O projeto foi desenvolvidos através do Databricks Community, com os dados armaz
 
 ## Esquema Estrela
 
+![image info](./img/star_schema_enem.png)
+
 **Fato:**
 - `fato_resultado_enem`: notas, presenças, status da redação
 
