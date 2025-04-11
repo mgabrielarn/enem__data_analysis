@@ -3,7 +3,7 @@
 Este projeto foi desenvolvido como projeto final da sprint de Engenharia de Dados do curso de pós graduação em Ciência de Dados e Analytics pela PUC Rio de Janeiro. Em relação à estrutura de dados, faz-se a construção de um Data Warehouse baseado nos Microdados do ENEM 2023 (versão mais recente disponível), utilizando o modelo dimensional Estrela e Spark. O objetivo principal é fornecer informações sobre como as notas se distrubuem de acordo com fatores como UF, sexo, raça e ano de conclusão do ensino médio. Além disso, possibilitar análises dentro do questionário socioeconônimo como as relacionadas a renda familiar e nível de escolaridade dos pais.
 
 
-O projeto foi desenvolvidos através do Databricks Community, com os dados armazenados no Google Drive (após estração do site oficial). Estão presentes nesse repositório o notebook com o pipeline do ETL (), o notebook com as análises e o catálogo de dados ().
+O projeto foi desenvolvidos através do Databricks Community, com os dados armazenados no Google Drive (após estração do site oficial). Estão presentes nesse repositório o notebook com o pipeline do **ETL** ([link para o .ipynb](https://github.com/mgabrielarn/enem__data_analysis/blob/main/src/ETL.ipynb)), o notebook com as análises e o **catálogo de dados** ([link para o .md](https://github.com/mgabrielarn/enem__data_analysis/blob/main/src/data_catalog.md)).
 
 ---
 ## Objetivo
