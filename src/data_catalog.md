@@ -23,7 +23,7 @@
 | NU_ANO               | Inteiro   | Ano da realização do exame | 2023 |
 | TP_PRESENCA_* (CN, CH, LC, MT)        | Inteiro   | Presença nas provas (0 = ausente, 1 = presente, 2 = eliminado) | {0, 1, 2} |
 | NU_NOTA_* (CN, CH, LC, MT)           | Double    | Nota por área do conhecimento | 0–1000 |
-| TP_STATUS_REDACAO    | Inteiro   | Status da correção da redação (1 = Sem problemas, 2 = Anulada, 3 = Cópia Texo Motivador, 4 = Em Branco, 6 = Fuga ao tema, 7= Não atendeu ao tipo textual, 8 = Texto insuficiente, 9 = Parte desconectada) | Ex: {1, 2, 3, ... , 9} |
+| TP_STATUS_REDACAO    | Inteiro   | Status da correção da redação (1 = Sem problemas, 2 = Anulada, 3 = Cópia Texto Motivador, 4 = Em Branco, 6 = Fuga ao tema, 7= Não atendeu ao tipo textual, 8 = Texto insuficiente, 9 = Parte desconectada) | Ex: {1, 2, 3, ... , 9} |
 | NU_NOTA_REDACAO      | Double    | Nota final da redação | 0–1000 |
 | ID_* (PARTICIPANTE, SOCIOECONOMICO, LOCAL_PROVA)                 | Inteiro   | Chaves estrangeiras para dimensões | Geradas via surrogate key |
 
