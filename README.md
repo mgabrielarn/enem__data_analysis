@@ -44,7 +44,11 @@ Por ser um escopo bastante amplo, neste projeto o foco será as disciplinas exat
 ---
 ## Autoavaliação
 
-lorem ips
+De forma geral, os objetivos definidos no início do projeto foram atendidos já que as perguntas propostas foram respondidas. É importante lembrar que o projeto teve como base os microdados do ENEM de 2023 e os comportamentos observados podem não ser recorrentes em outros anos.
+
+
+Pensando em evoluções futuras, seria interessante reunir microdados do ENEM de anos anteriores e refazer essas análises para entender se os comportamentos observados são ou não pontuais e se precisam de políticas públicas específicas que os envolvam.
+
 ---
 
 ## Documentação
