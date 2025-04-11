@@ -1,4 +1,4 @@
-# Catálogo de Dados — Microdados do ENEM 2023
+# Catálogo de Dados - Microdados do ENEM 2023
 ---
 
 
