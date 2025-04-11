@@ -11,12 +11,14 @@ O projeto foi desenvolvidos através do Databricks Community, com os dados armaz
 O Exame Nacional do Ensino Médio, ENEM, é uma das principais ferramentas de avaliação da educação no Brasil. Por ser aplicado em todo o país, para todos os tipos de escola, para estudantes de alta e baixa renda dentre outros fatores, é uma poderosa ferramenta para entender desigualdades na qualidade do ensino que recebem.
 
 Diferentes fatores, além dos explorados na análise, podem contribuir para as notas dos estudantes no exame mas se espera que ao observar o comportamento agrupado de todos eles possamos entender o cenário e responder algumas perguntas relacionadas como:
-1.  Existem diferenças significativas nos desempenhos de estudantes de acordo com sua Unidade da Federação?
-2.  Existem diferenças significativas nos desempenhos de estudantes do sexo masculino e feminino?
+1. Existem diferenças significativas nos desempenhos de estudantes de acordo com sua Unidade da Federação?
+2. Existem diferenças significativas nos desempenhos de estudantes do sexo masculino e feminino?
 3. Existem diferenças significativas nos desempenhos de estudantes de acordo com sua cor/raça/etnia?
 4. Existem diferenças significativas nos desempenhos de estudantes de acordo com o tipo da escola que frenquentaram?
 6. Existem diferenças significativas nos desempenhos de estudantes de acordo com o nível de escolaridade que seus pais recebram?
 7. Existe um perfil claro dentre os alunos com melhores performances?
+
+Por ser um escopo bastante amplo, neste projeto o foco será as disciplinas exatas, ou seja Matemática e Ciências da Natureza.
 
 ---
 ## Fonte dos Dados
